@@ -1,0 +1,71 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{newtxtext, newtxmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning}
+
+
+\begin{document}
+\pagestyle{empty}
+
+% define block styles
+\tikzstyle{decision} = [diamond, aspect=2, draw, fill=blue!80!green!10, text centered, text width=7em, node distance=2cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, fill=blue!80!green!10, draw, text centered, text width=8em, rounded corners, minimum height=4em]
+\tikzstyle{yes} = [circle, draw, text centered, text width=2.5em, minimum height=1em]
+\tikzstyle{no} = [circle, draw, text centered, text width=2.5em, minimum height=1em]
+\tikzstyle{arrow} = [thick,->, >=Latex]
+
+\begin{tikzpicture}[node distance=3cm, auto]
+    % place nodes
+    % set 1
+    \node (b0) at (0,5) [draw, block] {Photometric survey data};
+    \node (q0) at (0,2.5) [draw, decision] {Cored profile?};
+    \node (y0) at (-4, 2.5) [draw, yes] {yes};
+    \node (n0) at (4, 2.5) [draw, no] {no};
+    \node (q1) at (0,0) [draw, decision] {Off-centre intensity peak?};
+    \node (y1) at (-4, 0) [draw, yes] {yes};
+    \node (n1) at (4, 0) [draw, no] {no};
+    \node (b1) at (0, -2.5) [draw, block] {Do IFU mapping};
+    %\node[block, below of=q1] (b1) {Do IFU mapping};
+
+    % set 2
+    \node (q2) at (0, -5) [draw, decision] {Asymmetric velocity dispersion?};
+    \node (y2) at (-4, -5) [draw, yes] {yes};
+    \node (n2) at (4, -5) [draw, no] {no};
+    \node (b2) at (0, -7.75) [draw, block] {Deep kinematic observation targeting candidate};
+
+    % set 3
+    \node (q3) at (0, -10) [draw, decision] {High velocity dispersion?};
+    \node (y3) at (-4, -10) [draw, yes] {yes};
+    \node (n3) at (4, -10) [draw, no] {no};
+    \node (b3) at (-4, -12) [draw, block] {BRC};
+
+    \node (b4) at (4.98, -12) [draw, block] {No BRC};
+
+    % add arrows
+    \draw [arrow] (b0.south) -- (q0.north);
+    \draw [arrow] (q0.west) -- (y0.east);
+    \draw [arrow] (q0.east) -- (n0.west);
+    \draw [arrow] (y0.south east) -- (q1.north west);
+
+    \draw [arrow] (q1.west) -- (y1.east);
+    \draw [arrow] (q1.east) -- (n1.west);
+    \draw [arrow] (y1.south east) -- (b1.north west);
+    
+    \draw [arrow] (b1.south) -- (q2.north);
+    \draw [arrow] (q2.west) -- (y2.east);
+    \draw [arrow] (q2.east) -- (n2.west);
+    \draw [arrow] (y2.south east) -- (b2.north west);
+    \draw [arrow] (b2.south) -- (q3.north);
+    
+    \draw [arrow] (q3.west) -- (y3.east);
+    \draw [arrow] (q3.east) -- (n3.west);
+    \draw [arrow] (y3.south) -- (b3.north);
+
+    \draw [arrow] (n0.east) -- (5.8,2.5) -- (b4.41);
+    \draw [arrow] (n1.east) -- (5.4,0) -- (b4.59);
+    \draw [arrow] (n2.east) -- (5, -5) -- (b4.88);
+    \draw [arrow] (n3.south) -- (b4.144);
+
+
+\end{tikzpicture}
+\end{document}
